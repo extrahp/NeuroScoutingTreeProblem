@@ -138,18 +138,52 @@ public class Tree {
 	}
 	
 	public void printTree() {
-		ArrayList<Integer> theList = getAllValues();
-		for (int i = 0; i < theList.size(); i+= 1) {
-			System.out.println(theList.get(i));
+		ArrayList<Integer> theValues = getAllValues();
+		double numSpacesFront;
+		double numSpacesMiddle;
+		int i = 0;
+		int lineNum = 0;
+		double perLine;
+		int posInLine;
+		while (lineNum < getHeight()) {
+			perLine = Math.pow(2, lineNum);
+			posInLine = 0;
+			numSpacesFront = Math.pow(2, getHeight()-lineNum) - 1;
+			numSpacesMiddle = Math.pow(2, getHeight()-lineNum + 1) - 1;
+			makeSpaces(numSpacesFront);
+			System.out.print(theValues.get(i));
+			i += 1;
+			posInLine += 1;
+			while (posInLine < perLine) {
+				makeSpaces(numSpacesMiddle);
+				System.out.print(theValues.get(i));
+				i += 1;
+				posInLine += 1;
+			}
+			System.out.println("");
+			lineNum += 1;
 		}
 	}
 	
+	private void makeSpaces(double nums) {
+		while (nums > 0) {
+			nums -= 1;
+			System.out.print(" ");
+		}
+	}
 	ArrayList<Integer> getAllValues() {
-		ArrayList<Integer> nums = new ArrayList<Integer>();
-		nums.add(getValue());
-		nums.addAll(left.getAllValues());
-		nums.addAll(right.getAllValues());
-		return nums;
+		ArrayList<Tree> queue = new ArrayList<Tree>();
+		ArrayList<Integer> theValues = new ArrayList<Integer>();
+		queue.add(this);
+		while (!queue.isEmpty()) {
+			Tree currentTree = queue.remove(0);
+			theValues.add(currentTree.getValue());
+			if (currentTree.getLeft() != null)
+			queue.add(currentTree.getLeft());
+			if (currentTree.getRight() != null)
+			queue.add(currentTree.getRight());
+		}
+		return theValues;
 	}
 }
 
@@ -172,4 +206,13 @@ class Leaf extends Tree {
 		nums.add(getValue());
 		return nums;
 	}
+	
+	public Tree getLeft() {
+		return null;
+	}
+	
+	public Tree getRight() {
+		return null;
+	}
+	
 }
