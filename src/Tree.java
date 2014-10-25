@@ -17,13 +17,13 @@ public class Tree {
 	public int getValue() {
 		return value;
 	}
-	public void setValue(int val) {
+	private void setValue(int val) {
 		value = val;
 	}
-	void setLeft(Tree l) {
+	private void setLeft(Tree l) {
 		left = l;
 	}
-	void setRight(Tree r) {
+	private void setRight(Tree r) {
 		right = r;
 	}
 	
@@ -60,7 +60,7 @@ public class Tree {
 		
 	}
 	
-	public boolean hasLeft() {
+	private boolean hasLeft() {
 		Tree currentParent = parent;
 		Tree currentThis = this;
 		while (currentParent != null && currentParent.getLeft() == currentThis) {
@@ -69,7 +69,7 @@ public class Tree {
 		}
 		return (currentParent != null);
 	}
-	public boolean hasRight() {
+	private boolean hasRight() {
 		Tree currentParent = parent;
 		Tree currentThis = this;
 		while (currentParent != null && currentParent.getRight() == currentThis) {
